@@ -65,7 +65,7 @@ void printf ( char *c, ... ) {
 					i++;
 				}
 
-				//TODO serialf ( "%d\n\n\n", i );
+				serialf ( "%d\n\n\n", i );
 
 				printf ( charArrayArg );
 				i = i + 2;
@@ -165,7 +165,7 @@ void kprintf ( char *c, ... ) {
 
 				for ( x = 0; x < numberLength; x++ ) {
 					monitor_put ( integer[x] );
-					//write_serial ( integer[x] );
+					write_serial ( integer[x] );
 				}
 
 				i = i + 2;
@@ -191,8 +191,8 @@ void kprintf ( char *c, ... ) {
 				int32_t tmp;
 
 				printf ( "0x" );
-				//write_serial ( '0' );
-				//write_serial ( 'x' );
+				write_serial ( '0' );
+				write_serial ( 'x' );
 
 				char noZeroes = 1;
 
@@ -221,11 +221,11 @@ void kprintf ( char *c, ... ) {
 
 				if ( tmp >= 0xA ) {
 					monitor_put ( tmp - 0xA + 'a' );
-					//write_serial ( tmp - 0xA + 'a' );
+					write_serial ( tmp - 0xA + 'a' );
 
 				} else {
 					monitor_put ( tmp+'0' );
-					//write_serial ( tmp+'0' );
+					write_serial ( tmp+'0' );
 				}
 
 				i = i + 2;
@@ -237,7 +237,7 @@ void kprintf ( char *c, ... ) {
 				break;
 
 			} else {
-				//write_serial ( c[i] );
+				write_serial ( c[i] );
 				monitor_put ( c[i] );
 				i++;
 			}
