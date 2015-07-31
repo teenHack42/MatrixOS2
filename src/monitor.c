@@ -70,7 +70,7 @@ static void scroll()
 void monitor_put ( char c ) {
 	// The attribute byte is made up of two nibbles - the lower being the
 	// foreground colour, and the upper the background colour.
-	uint8_t  attributeByte = ( backColour << 4 ) | ( foreColour & 0x0A );
+	uint8_t  attributeByte = ( backColour << 4 ) | ( foreColour & 0x0F );
 	// The attribute byte is the top 8 bits of the word we have to send to the
 	// VGA board.
 	uint16_t attribute = attributeByte << 8;
