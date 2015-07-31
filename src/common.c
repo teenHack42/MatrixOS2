@@ -47,8 +47,50 @@ uint32_t inl ( uint16_t port ) {
 }
 
 /*
-//  outl: write value(u32int_t) to port
+//  outl: write value(uint32_t_t) to port
 */
 void outl ( uint16_t port, uint32_t value ) {
 asm volatile ( "outl %1, %0" : : "dN" (port), "a" (value));
+}
+
+
+/*
+// Count the length of a char array.
+*/
+int strlen ( char *src ) {
+	int i = 0;
+
+	while ( *src++ ) {
+		i++;
+	}
+
+	return i;
+}
+
+void numToAsciChar ( char *asciInChar, int integerLength ) {
+	int x;
+
+	for ( x = 0; x < integerLength; x++ ) {
+		asciInChar[x] = asciInChar[x] + 48; //(only works on integers)
+	}
+
+}
+
+void intToChar ( int integer, char *numbersInChar ) {
+	int32_t integerLength = math_intLength ( integer ), x, endX;
+	int32_t number = integer % 10;
+
+	//~ char *numbersInChar[integerLength];
+
+	for ( x = 0; x < integerLength + 1; x++ ) {
+		if ( x != 0 ) {
+			integer = ( integer - number ) / 10;
+			number = ( integer ) % 10;
+		}
+
+		endX = integerLength - x - 1;
+
+		numbersInChar[endX] = number;
+	}
+
 }

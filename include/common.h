@@ -20,4 +20,8 @@ void outw ( uint16_t port, uint16_t value );
 uint32_t inl ( uint16_t port );
 void outl ( uint16_t port, uint32_t value );
 
+int strlen ( char *src );
+void numToAsciChar ( char *asciInChar, int integerLength );
+void intToChar ( int integer, char *numbersInChar );
+
 #endif//COMMON_H
