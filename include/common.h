@@ -24,4 +24,7 @@ int strlen ( char *src );
 void numToAsciChar ( char *asciInChar, int integerLength );
 void intToChar ( int integer, char *numbersInChar );
 
+void memcpy ( uint8_t *dest, const uint8_t *src, uint32_t len );
+void memset ( uint8_t *dest, uint8_t val, uint32_t len );
+
 #endif//COMMON_H

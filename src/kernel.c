@@ -11,6 +11,12 @@ void kernel_main(struct multiboot *mboot_point, uint32_t initial_stack) {
 	initial_esp = initial_stack; //Must be first to run
 	mboot_ptr = mboot_point; //Must be first to run
 	init_serial(1, 1);
+
+	init_descriptor_tables();
+
+
 	kprintf("Hello, Crule World!\nHahaha :D\n");
 	serialf("This is from serialf!\n");
+	
+
 }
