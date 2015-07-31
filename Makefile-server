@@ -1,0 +1,31 @@
+#!/usr/bin/make
+SSH = ssh
+EXT_USER = grant
+EXT_SERVER = dell
+EXT = $(EXT_USER)@$(EXT_SERVER)
+EXTF = $(SSH) $(EXT)
+
+LOCALHOST=`hostname`
+
+BASEDIR = ~/MatrixOS2
+DIRS = src grub initrd bin include isodir
+FILES = kernel.sh Makefile-iso kernel.sh
+
+all:
+	@if ! ($(EXTF) 'test -d $(BASEDIR)');	then { $(EXTF) 'mkdir $(BASEDIR);'; echo "Directorys Created" } else { echo "Directorys All Good!";}; fi #create dir if not found
+	@echo "Taring code"
+	@cd $(BASEDIR) && tar -pcf tar.tar $(DIRS) $(FILES)
+	@echo "Sending code to $(EXT)"
+	@cd $(BASEDIR) && scp -C ./tar.tar $(EXT):~/MatrixOS2
+	@echo "UnTaring code"
+	@$(EXTF) "cd $(BASEDIR); rm -r $(DIRS); tar -pxf tar.tar"
+	@echo "Compiling code"
+	@$(EXTF) "cd $(BASEDIR)/src; make"
+	@echo "Making CD image"
+	@$(EXTF) "cd $(BASEDIR) && make -f Makefile-iso"
+	@echo "Sending back result"
+	@scp -C $(EXT):$(BASEDIR)/MatrixOS2.iso $(BASEDIR)
+	@$(EXTF) 'cd $(BASEDIR) && tar -pcf tar.tar src initrd'
+	@scp -C $(EXT):$(BASEDIR)/tar.tar .
+	@tar -pxf tar.tar
+	@echo "DONE!"
